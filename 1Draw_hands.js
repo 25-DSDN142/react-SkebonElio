@@ -1,10 +1,17 @@
 // ----=  HANDS  =----
 /* load images here */
 function prepareInteraction() {
-  //bgImage = loadImage('/images/background.png');
+  chompGif = loadImage('/Chomp (1).gif');
+  chompF0 = loadImage('/Chomp0.png');
+  chompF1 = loadImage('/Chomp1.png');
+  chompF2 = loadImage('/Chomp2.png');
+  chompF3 = loadImage('/Chomp3.png');
+  chompF4 = loadImage('/Chomp4.png');
+  chompF5 = loadImage('/Chomp5.png');
 }
 
 function drawInteraction(faces, hands) {
+ 
   // hands part
   // for loop to capture if there is more than one hand on the screen. This applies the same process to all hands.
   for (let i = 0; i < hands.length; i++) {
@@ -25,14 +32,18 @@ function drawInteraction(faces, hands) {
     Start drawing on the hands here
     */
 
-    fill(225, 225, 0);
-    ellipse(indexFingerTipX, indexFingerTipY, 30, 30);
+    // fill(225, 225, 0);
+    // ellipse(indexFingerTipX, indexFingerTipY, 30, 30);
+
+    // drawConnections(hand)
 
     // drawPoints(hand)
 
-    //fingerPuppet(indexFingerTipX, indexFingerTipY);
+    chomp(indexFingerTipX, indexFingerTipY);
 
-    //chameleonHandPuppet(hand)
+    // fingerPuppet(indexFingerTipX, indexFingerTipY);
+
+    // chameleonHandPuppet(hand)
 
     /*
     Stop drawing on the hands here
@@ -44,7 +55,31 @@ function drawInteraction(faces, hands) {
 
 
 
+function chomp(x,y) {
+  let finger = hand.middle_finger_tip; // this finger now contains the x and y infomation! you can access it by using finger.x 
+  let thumb = hand.thumb_tip;
 
+  // Draw circles at finger positions
+  let centerX = (finger.x + thumb.x) / 2;
+  let centerY = (finger.y + thumb.y) / 2;
+  // Calculate the pinch "distance" between finger and thumb
+  let pinch = dist(finger.x, finger.y, thumb.x, thumb.y);
+
+ push();
+  imageMode (CENTER); 
+  translate(x, y);
+  scale(pinch/10);
+  image(chompF0, 0, 0)
+  pop();
+
+  // This circle's size is controlled by a "pinch" gesture
+  // circle(centerX, centerY, pinch);
+
+  // let indexFingerTipX = hand.index_finger_tip.x;
+  // let indexFingerTipY = hand.index_finger_tip.y;
+  
+  // circle(indexFingerTipX, indexFingerTipY, 20);
+}
 
 
 function fingerPuppet(x, y) {
