@@ -1,7 +1,7 @@
 // ----=  HANDS  =----
 /* load images here */
 function prepareInteraction() {
-  chompGif = loadImage('/Chomp (1).gif');
+  chompGif = loadImage('/Chomp.gif');
   chompF0 = loadImage('/Chomp0.png');
   chompF1 = loadImage('/Chomp1.png');
   chompF2 = loadImage('/Chomp2.png');
@@ -24,6 +24,8 @@ function drawInteraction(faces, hands) {
     // This is how to load in the x and y of a point on the hand.
     let indexFingerTipX = hand.index_finger_tip.x;
     let indexFingerTipY = hand.index_finger_tip.y;
+    let thumbTipX = hand.thumb_tip.x;
+    let thumbTipY = hand.thumb_tip.y;
 
     //  let pinkyFingerTipX = hand.pinky_finger_tip.x;
     //  let pinkyFingerTipY = hand.pinky_finger_tip.y;
@@ -35,15 +37,15 @@ function drawInteraction(faces, hands) {
     // fill(225, 225, 0);
     // ellipse(indexFingerTipX, indexFingerTipY, 30, 30);
 
-    // drawConnections(hand)
+    // drawConnections(hand);
 
-    // drawPoints(hand)
+    // drawPoints(hand);
 
-    chomp(indexFingerTipX, indexFingerTipY);
+    chomp(hand);
 
     // fingerPuppet(indexFingerTipX, indexFingerTipY);
 
-    // chameleonHandPuppet(hand)
+    // chameleonHandPuppet(hand);
 
     /*
     Stop drawing on the hands here
@@ -55,8 +57,10 @@ function drawInteraction(faces, hands) {
 
 
 
-function chomp(x,y) {
-  let finger = hand.middle_finger_tip; // this finger now contains the x and y infomation! you can access it by using finger.x 
+function chomp(hand) {
+ push();
+  let finger = hand.index_finger_tip;
+  //let finger = hand.pinky_finger_tip;
   let thumb = hand.thumb_tip;
 
   // Draw circles at finger positions
@@ -64,21 +68,30 @@ function chomp(x,y) {
   let centerY = (finger.y + thumb.y) / 2;
   // Calculate the pinch "distance" between finger and thumb
   let pinch = dist(finger.x, finger.y, thumb.x, thumb.y);
-
- push();
   imageMode (CENTER); 
-  translate(x, y);
-  scale(pinch/10);
-  image(chompF0, 0, 0)
+  translate(centerX, centerY);
+  scale(0.25);
+  if(pinch <= 30){
+    image(chompF0, 0,0)
+  } else if(pinch > 30 && pinch <= 60){
+    image(chompF1, 0,0)
+  } else if(pinch > 60 && pinch <= 90){
+    image(chompF2, 0,0)
+  } else if(pinch > 90 && pinch <= 120){
+    image(chompF3, 0,0)
+  } else if(pinch > 120 && pinch <= 150){
+    image(chompF4, 0,0)
+  } else if(pinch > 150){
+    image(chompF5, 0,0)
+  }
+
+
+
+
+
+  
   pop();
 
-  // This circle's size is controlled by a "pinch" gesture
-  // circle(centerX, centerY, pinch);
-
-  // let indexFingerTipX = hand.index_finger_tip.x;
-  // let indexFingerTipY = hand.index_finger_tip.y;
-  
-  // circle(indexFingerTipX, indexFingerTipY, 20);
 }
 
 
