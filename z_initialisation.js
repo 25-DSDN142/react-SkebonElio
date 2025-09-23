@@ -265,9 +265,9 @@ function detectFaceExpression(face) {
   let mouthWidth = face.lips.width;
   let ratio = mouthHeight / mouthWidth;
   
-  if (ratio > 0.5) {
+  if (ratio > 0.6) {
     return "Surprised";
-  } else if (ratio < 0.2) {
+  } else if (ratio < 0.45) {
     return "Neutral";
   } else {
     return "Smiling";

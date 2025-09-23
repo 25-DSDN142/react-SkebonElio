@@ -2,6 +2,13 @@
 /* load images here */
 function prepareInteraction() {
   //bgImage = loadImage('/images/background.png');
+    chompGif = loadImage('/Chomp.gif');
+  chompF0 = loadImage('/Chomp0.png');
+  chompF1 = loadImage('/Chomp1.png');
+  chompF2 = loadImage('/Chomp2.png');
+  chompF3 = loadImage('/Chomp3.png');
+  chompF4 = loadImage('/Chomp4.png');
+  chompF5 = loadImage('/Chomp5.png');
 }
 
 function drawInteraction(faces, hands) {
@@ -9,7 +16,7 @@ function drawInteraction(faces, hands) {
   // for loop to capture if there is more than one face on the screen. This applies the same process to all faces. 
   for (let i = 0; i < faces.length; i++) {
     let face = faces[i]; // face holds all the keypoints of the face\
-    console.log(face);
+   // console.log(face);
     if (showKeypoints) {
       drawPoints(face)
     }
@@ -61,6 +68,17 @@ function drawInteraction(faces, hands) {
 
     let noseTipX = face.keypoints[4].x;
     let noseTipY = face.keypoints[4].y;
+
+   //
+   
+   
+
+
+
+   //
+
+
+
     /*
     Start drawing on the face here
     */
@@ -68,13 +86,13 @@ function drawInteraction(faces, hands) {
     fill(225, 225, 0);
     // fill(get(leftEyeCenterX, leftEyeCenterY))
 
-    ellipse(leftEyeCenterX, leftEyeCenterY, leftEyeWidth, leftEyeHeight);
+    // ellipse(leftEyeCenterX, leftEyeCenterY, leftEyeWidth, leftEyeHeight);
 
-    drawPoints(face.leftEye);
-    drawPoints(face.leftEyebrow);
-    drawPoints(face.lips);
-    drawPoints(face.rightEye);
-    drawPoints(face.rightEyebrow);
+    // drawPoints(face.leftEye);
+    // drawPoints(face.leftEyebrow);
+    // drawPoints(face.lips);
+    // drawPoints(face.rightEye);
+    // drawPoints(face.rightEyebrow);
 
     // drawX(rightEyeCenterX,rightEyeCenterY);
     // drawX(leftEyeCenterX,leftEyeCenterY);
@@ -85,6 +103,9 @@ function drawInteraction(faces, hands) {
     // drawX(face.keypoints[332].x,face.keypoints[332].y);
     // drawX(face.keypoints[103].x,face.keypoints[103].y);
 
+   chomp(face);
+    
+
 
     /*
     Stop drawing on the face here
@@ -94,6 +115,37 @@ function drawInteraction(faces, hands) {
   //------------------------------------------------------
   // You can make addtional elements here, but keep the face drawing inside the for loop. 
 }
+
+
+function chomp(face) {
+ push();
+  let faceWidth = face.faceOval.width;
+  let faceheight = face.faceOval.height;
+
+  // let rotate = (face.keypoints[10]);
+  // if (rotate < 640)
+  
+  let centerX = face.faceOval.centerX;
+  let centerY = face.faceOval.centerY;
+
+
+ ellipse(centerX,centerY, 10, 10 )
+
+  imageMode (CENTER); 
+  translate(face.keypoints[1].x, face.keypoints[1].y);
+  scale(0.3);
+ 
+ // console.log(((face.keypoints[10].x+face.keypoints[10].y)/100))
+  rotate(((face.keypoints[10].x+face.keypoints[10].y)/100));
+//let rotateAmnt = face.keypoints[10].x + face.keypoints[1].x;
+
+    image(chompF0, 0,0)
+
+  pop();
+
+}
+
+
 
 function drawX(X, Y) {
   push()
