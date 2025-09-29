@@ -9,6 +9,8 @@ function prepareInteraction() {
   chompF3 = loadImage('/Chomp3.png');
   chompF4 = loadImage('/Chomp4.png');
   chompF5 = loadImage('/Chomp5.png');
+  headImg = loadImage('/head_0.png');
+  jawImg = loadImage('/jaw_0.png');
 }
 
 function drawInteraction(faces, hands) {
@@ -119,6 +121,7 @@ function drawInteraction(faces, hands) {
 
 function chomp(face) {
  push();
+
   let faceWidth = face.faceOval.width;
   let faceheight = face.faceOval.height;
 
@@ -127,20 +130,30 @@ function chomp(face) {
   
   let centerX = face.faceOval.centerX;
   let centerY = face.faceOval.centerY;
+  
+  let faceDist = dist(face.keypoints[94].x, face.keypoints[94].y, face.keypoints[10].x, face.keypoints[10].y);
+  let faceSize = map(faceDist, 50, 400, 0.2,1);
 
-
- ellipse(centerX,centerY, 10, 10 )
-
+   let jawDist = dist(face.keypoints[13].x ,face.keypoints[13].y ,face.keypoints[14].x ,face.keypoints[14].y);
+   let jawY = map(jawDist, 6, faceDist, 0, 400);
+ 
+   let jawC = map(jawDist, 6, faceDist, 100, 900);
+   let c = color(color(jawC, jawC, 0));
+//  ellipse(centerX,centerY, 10, 10 )
+  rectMode(CENTER);
   imageMode (CENTER); 
   translate(face.keypoints[1].x, face.keypoints[1].y);
-  scale(0.3);
- 
+  scale(faceSize);
+  
+  fill(c);
+
  // console.log(((face.keypoints[10].x+face.keypoints[10].y)/100))
   rotate(((face.keypoints[10].x+face.keypoints[10].y)/100));
 //let rotateAmnt = face.keypoints[10].x + face.keypoints[1].x;
-
-    image(chompF0, 0,0)
-
+    rect(0,-200, 650, 150);
+    image(headImg, 0,0)
+    image(jawImg, 0,jawY)
+    
   pop();
 
 }
